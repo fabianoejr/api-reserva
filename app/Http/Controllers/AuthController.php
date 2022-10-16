@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SignUp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Validator;
 
 class AuthController extends Controller
@@ -16,7 +18,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'verifyEmail']]);
     }
     /**
      * Get a JWT via given credentials.
@@ -52,6 +54,9 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+        $base_url = env('APP_URL');
+        $hash = md5(rand(0, 1000));
+        $link = $base_url . '/' .'validateEmail/' . $hash;
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
@@ -62,10 +67,12 @@ class AuthController extends Controller
         }
         $user = User::create(array_merge(
             $validator->validated(),
-            ['password' => bcrypt($request->password)]
+            ['password' => bcrypt($request->password)],
+            ['hash_email' =>  $hash],
         ));
+        Mail::to($request->email)->send(new SignUp($request->name, $request->email, $link));
         return response()->json([
-            'message' => 'User successfully registered',
+            'message' => 'Usuário cadastrado com sucesso!',
             'user' => $user
         ], 201);
     }
@@ -113,5 +120,34 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()
         ]);
+    }
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function verifyEmail($hash)
+    {
+        if (User::where('hash_email', $hash)->exists()) {
+            $usuario = User::where('hash_email', $hash)->first();
+            if (is_null($usuario->email_verified_at)) {
+                $usuario->email_verified_at = date('Y-m-d H:i:s');
+                $usuario->save();
+                return view('EmailVerified');
+                
+                response()->json([
+                    "message" => "E-mail verificado com sucesso!"
+                ], 200);
+            } else {
+                return response()->json([
+                    "message" => "E-mail já verificado."
+                ], 404);
+            }
+        }
+        return response()->json([
+            "message" => "E-mail não cadastrado."
+        ], 404);
     }
 }
