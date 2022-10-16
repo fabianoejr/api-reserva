@@ -21,3 +21,6 @@ Route::get('/', function () {
 
 Route::get('/sendmail', 'App\Http\Controllers\MailController@sendMail');
 Route::get('/validateEmail/{hash}', 'App\Http\Controllers\AuthController@verifyEmail');
+Route::get('/recoveryPassword/{hash}', function (){
+    return view('RecoveryPassword');
+});

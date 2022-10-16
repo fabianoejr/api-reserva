@@ -165,7 +165,7 @@ class AuthController extends Controller
         $hash = md5(rand(0, 1000));
         $data = date('Y-m-d H:i:s');
         $base_url = env('APP_URL');
-        $link = $base_url . '/' . 'recoverPassword/' . $hash;
+        $link = $base_url . '/' . 'recoveryPassword/' . $hash;
         if (User::where('email', $request->email)->exists()) {
             $usuario = User::where('email', $request->email)->first();
             $usuario->hash_password = $hash;
@@ -181,12 +181,13 @@ class AuthController extends Controller
         ], 400);
     }
 
-    public function recoveryPassword($hash, $password)
+    public function recoveryPassword(Request $request)
     {
-        if (User::where('hash_password', $hash)->exists()) {
-            $usuario = User::where('hash_password', $hash)->first();
-            if ((date('Y-m-d H:i:s') <= $usuario->hash_password_expires) && ($password != '')) {
-                $usuario->password = $password;
+
+        if (User::where('hash_password', $request->hash)->exists()) {
+            $usuario = User::where('hash_password', $request->hash)->first();
+            if ((date('Y-m-d H:i:s') <= $usuario->hash_password_expires) && ($request->password != '')) {
+                $usuario->password = bcrypt($request->password);
                 $usuario->save();
                 response()->json([
                     "message" => "E-mail verificado com sucesso!"
@@ -196,7 +197,7 @@ class AuthController extends Controller
                 response()->json([
                     "message" => "Erro ao alterar a senha."
                 ], 404);
-                return View::make('EmailVerified')->with('return', 'Oops! Ocorreram erros, favor tente novamente.');
+                return View::make('EmailVerified')->with('return', 'Oops! O link expirou, favor solicite novamente a redefinição de senha.');
             }
         }
         response()->json([
