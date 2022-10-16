@@ -34,6 +34,7 @@ class SignUp extends Mailable
      */
     public function build()
     {
-        return $this->markdown('SignUpView');
+        return $this->markdown('SignUpView')
+                    ->subject('Plataforma de Reservas - Verificação de e-mail');
     }
 }

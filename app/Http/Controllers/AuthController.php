@@ -6,6 +6,7 @@ use App\Mail\SignUp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use View;
 use Illuminate\Support\Facades\Mail;
 use Validator;
 
@@ -85,7 +86,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-        return response()->json(['message' => 'User successfully signed out']);
+        return response()->json(['message' => 'Deslogado com sucesso!']);
     }
     /**
      * Refresh a token.
@@ -135,12 +136,12 @@ class AuthController extends Controller
             if (is_null($usuario->email_verified_at)) {
                 $usuario->email_verified_at = date('Y-m-d H:i:s');
                 $usuario->save();
-                return view('EmailVerified');
-                
+                return View::make('EmailVerified')->with('return', 'E-mail verificado com sucesso!');
                 response()->json([
                     "message" => "E-mail verificado com sucesso!"
                 ], 200);
             } else {
+                return View::make('EmailVerified')->with('return', 'E-mail já verificado.');
                 return response()->json([
                     "message" => "E-mail já verificado."
                 ], 404);

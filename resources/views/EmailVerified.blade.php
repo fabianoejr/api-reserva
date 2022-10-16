@@ -45,11 +45,11 @@
 <div class="verified-page">
     <div class="square">
         <div>
-            Conta verificada com sucesso!
+            {{ $return }}
             <br>
             <br>
             <br>
-            <button onclick="window.location.href = 'http://localhost:3000/login' ">Voltar ao Login</button>
+            <button onclick="window.location.href = 'http://localhost:3000/login' ">Voltar para a plataforma</button>
         </div>
     </div>
 </div>
