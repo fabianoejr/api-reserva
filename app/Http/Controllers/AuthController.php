@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SignUp;
+use App\Mail\RecoveryPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -19,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'verifyEmail']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'verifyEmail', 'recoveryPasswordEmail', 'recoveryPassword',]]);
     }
     /**
      * Get a JWT via given credentials.
@@ -57,7 +58,7 @@ class AuthController extends Controller
     {
         $base_url = env('APP_URL');
         $hash = md5(rand(0, 1000));
-        $link = $base_url . '/' .'validateEmail/' . $hash;
+        $link = $base_url . '/' . 'validateEmail/' . $hash;
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
@@ -150,5 +151,57 @@ class AuthController extends Controller
         return response()->json([
             "message" => "E-mail não cadastrado."
         ], 404);
+    }
+    /**
+     * Get the token array structure.
+     *
+     * @param  string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function recoveryPasswordEmail(Request $request)
+    {
+        $hash = md5(rand(0, 1000));
+        $data = date('Y-m-d H:i:s');
+        $base_url = env('APP_URL');
+        $link = $base_url . '/' . 'recoverPassword/' . $hash;
+        if (User::where('email', $request->email)->exists()) {
+            $usuario = User::where('email', $request->email)->first();
+            $usuario->hash_password = $hash;
+            $usuario->hash_password_expires = date('Y-m-d H:i:s', strtotime("+1 days", strtotime($data)));
+            $usuario->save();
+            Mail::to($request->email)->send(new RecoveryPassword($usuario->name, $request->email, $link));
+            return response()->json([
+                "message" => "Verifique seu e-mail para redefinir a senha."
+            ], 200);
+        }
+        return response()->json([
+            "message" => "Ocorreram erros, tente novamente."
+        ], 400);
+    }
+
+    public function recoveryPassword($hash, $password)
+    {
+        if (User::where('hash_password', $hash)->exists()) {
+            $usuario = User::where('hash_password', $hash)->first();
+            if ((date('Y-m-d H:i:s') <= $usuario->hash_password_expires) && ($password != '')) {
+                $usuario->password = $password;
+                $usuario->save();
+                response()->json([
+                    "message" => "E-mail verificado com sucesso!"
+                ], 200);
+                return View::make('EmailVerified')->with('return', 'Senha alterada com sucesso!');
+            } else {
+                response()->json([
+                    "message" => "Erro ao alterar a senha."
+                ], 404);
+                return View::make('EmailVerified')->with('return', 'Oops! Ocorreram erros, favor tente novamente.');
+            }
+        }
+        response()->json([
+            "message" => "Hash inválido."
+        ], 404);
+        return View::make('EmailVerified')->with('return', 'Hash inválido.');
     }
 }

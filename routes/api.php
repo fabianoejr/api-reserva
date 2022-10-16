@@ -35,4 +35,6 @@ Route::group([
     Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
     Route::post('me', 'App\Http\Controllers\AuthController@me');
     Route::post('verifyEmail', 'App\Http\Controllers\AuthController@verifyEmail');
+    Route::post('recoveryPasswordEmail', 'App\Http\Controllers\AuthController@recoveryPasswordEmail');
+    Route::post('recoveryPassword', 'App\Http\Controllers\AuthController@recoveryPassword');
 });

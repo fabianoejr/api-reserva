@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('hash_email', 32);
+            $table->string('hash_password', 32)->nullable();
+            $table->string('hash_password_expires', 32)->nullable();
         });
     }
 
