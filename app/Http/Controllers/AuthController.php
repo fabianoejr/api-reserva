@@ -56,7 +56,7 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $base_url = env('APP_URL');
+        $base_url = env('APP_URL' , 'http://127.0.0.1:8000');
         $hash = md5(rand(0, 1000));
         $link = $base_url . '/' . 'validateEmail/' . $hash;
         $validator = Validator::make($request->all(), [
@@ -71,6 +71,7 @@ class AuthController extends Controller
             $validator->validated(),
             ['password' => bcrypt($request->password)],
             ['hash_email' =>  $hash],
+            ['user_type' => 'USU'],
         ));
         Mail::to($request->email)->send(new SignUp($request->name, $request->email, $link));
         return response()->json([
