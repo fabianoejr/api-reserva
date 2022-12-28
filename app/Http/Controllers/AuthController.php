@@ -7,6 +7,7 @@ use App\Mail\RecoveryPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\UserTerms;
 use View;
 use Illuminate\Support\Facades\Mail;
 use Validator;
@@ -20,7 +21,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'verifyEmail', 'recoveryPasswordEmail', 'recoveryPassword',]]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'verifyEmail', 'recoveryPasswordEmail', 'recoveryPassword', 'getUserTerms']]);
     }
     /**
      * Get a JWT via given credentials.
@@ -56,7 +57,7 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $base_url = env('APP_URL' , 'http://127.0.0.1:8000');
+        $base_url = env('APP_URL', 'http://127.0.0.1:8000');
         $hash = md5(rand(0, 1000));
         $link = $base_url . '/' . 'validateEmail/' . $hash;
         $validator = Validator::make($request->all(), [
@@ -205,5 +206,17 @@ class AuthController extends Controller
             "message" => "Hash inválido."
         ], 404);
         return View::make('EmailVerified')->with('return', 'Hash inválido.');
+    }
+
+    public function getUserTerms()
+    {
+        if (UserTerms::where('situacao', 'A')->exists()) {
+            $termos = UserTerms::where('situacao', 'A')->get()->toJson(JSON_PRETTY_PRINT);
+            return response($termos, 200);
+        } else {
+            return response()->json([
+                "message" => "Termos de Serviço não encontrado!"
+            ], 404);
+        }
     }
 }
