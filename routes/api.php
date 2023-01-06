@@ -19,6 +19,8 @@ use App\Http\Controllers\AuthController;
 Route::get('Novidades', 'App\Http\Controllers\ApiController@getAllNews');
 Route::get('Novidades/{id}', 'App\Http\Controllers\ApiController@getUser');
 Route::get('Usuario/{id}', 'App\Http\Controllers\ApiController@getUser');
+Route::put('Usuario/{id}', 'App\Http\Controllers\ApiController@UpdateUser');
+Route::get('Usuario', 'App\Http\Controllers\ApiController@getAllUsers');
 Route::post('Novidades', 'App\Http\Controllers\ApiController@createNews');
 Route::put('Novidades/{id}', 'App\Http\Controllers\ApiController@updateNews');
 Route::delete('Novidades/{id}', 'App\Http\Controllers\ApiController@deleteNews');

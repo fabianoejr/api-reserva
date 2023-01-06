@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Novidades;
 use App\Models\User;
-use App\Models\Usuarios;
 
 class ApiController extends Controller
 {
@@ -52,6 +51,31 @@ class ApiController extends Controller
     } else {
       return response()->json([
         "message" => "Usuário não encontrado!"
+      ], 404);
+    }
+  }
+
+  public function getAllUsers()
+  {
+    $usuarios = User::get()->toJson(JSON_PRETTY_PRINT);
+    return response($usuarios, 200);
+  }
+
+  public function UpdateUser(Request $request, $id)
+  {
+    if (User::where('id', $id)->exists()) {
+      $usuarios = User::find($id);
+      $usuarios->name = is_null($request->name) ? $usuarios->name : $request->name;
+      $usuarios->email = is_null($request->email) ? $usuarios->email : $request->email;
+      $usuarios->user_type = is_null($request->user_type) ? $usuarios->user_type : $request->user_type;
+      $usuarios->save();
+
+      return response()->json([
+        "message" => "Usuário atualizado com sucesso!"
+      ], 200);
+    } else {
+      return response()->json([
+        "message" => "Erro ao atualizar."
       ], 404);
     }
   }
