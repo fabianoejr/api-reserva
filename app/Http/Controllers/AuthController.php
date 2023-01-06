@@ -208,6 +208,36 @@ class AuthController extends Controller
         return View::make('EmailVerified')->with('return', 'Hash inválido.');
     }
 
+    public function createUserTerms(Request $request)
+    {
+        $termos = new UserTerms();
+        $termos->descricao = $request->descricao;
+        $termos->situacao = $request->situacao;
+        $termos->save();
+
+        return response()->json([
+            "message" => "Termos de Serviço criado com sucesso!"
+        ], 201);
+    }
+
+    public function updateUserTerms(Request $request, $id)
+    {
+        if (UserTerms::where('id', $id)->exists()) {
+            $reserva = UserTerms::find($id);
+            $reserva->descricao = is_null($request->descricao) ? $reserva->descricao : $request->descricao;
+            $reserva->situacao = is_null($request->situacao) ? $reserva->situacao : $request->situacao;
+            $reserva->save();
+
+            return response()->json([
+                "message" => "Termos de Serviço atualizado com sucesso!"
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Erro ao atualizar o Termo de Serviço."
+            ], 404);
+        }
+    }
+
     public function getUserTerms()
     {
         if (UserTerms::where('situacao', 'A')->exists()) {
@@ -219,4 +249,21 @@ class AuthController extends Controller
             ], 404);
         }
     }
+
+    public function deleteUserTerms($id)
+  { {
+      if (UserTerms::where('id', $id)->exists()) {
+        $termos = UserTerms::find($id);
+        $termos->delete();
+
+        return response()->json([
+          "message" => "Termos de Serviço deletado!"
+        ], 202);
+      } else {
+        return response()->json([
+          "message" => "Termos de Serviço não encontrado!"
+        ], 404);
+      }
+    }
+  }
 }

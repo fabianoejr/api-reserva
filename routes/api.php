@@ -126,5 +126,8 @@ Route::group([
     Route::post('verifyEmail', 'App\Http\Controllers\AuthController@verifyEmail');
     Route::post('recoveryPasswordEmail', 'App\Http\Controllers\AuthController@recoveryPasswordEmail');
     Route::post('recoveryPassword', 'App\Http\Controllers\AuthController@recoveryPassword');
-    Route::get('getUserTerms', 'App\Http\Controllers\AuthController@getUserTerms');
+    Route::get('UserTerms', 'App\Http\Controllers\AuthController@getUserTerms');
+    Route::post('UserTerms', 'App\Http\Controllers\AuthController@createUserTerms');
+    Route::put('UserTerms', 'App\Http\Controllers\AuthController@updateUserTerms');
+    Route::delete('UserTerms', 'App\Http\Controllers\AuthController@deleteUserTerms');
 });
