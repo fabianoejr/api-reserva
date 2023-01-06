@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('hash_password', 32)->nullable();
             $table->string('hash_password_expires', 32)->nullable();
             $table->string('user_type', 3)->nullable();
+            $table->string('cpf', 11)->nullable();
+            $table->string('status', 1)->nullable();
         });
     }
 

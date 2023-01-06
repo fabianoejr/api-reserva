@@ -16,14 +16,101 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('Novidades', 'App\Http\Controllers\ApiController@getAllNews');
-Route::get('Novidades/{id}', 'App\Http\Controllers\ApiController@getUser');
+/*
+|--------------------------------------------------------------------------
+| Usuários
+|--------------------------------------------------------------------------
+|
+*/
+
 Route::get('Usuario/{id}', 'App\Http\Controllers\ApiController@getUser');
-Route::put('Usuario/{id}', 'App\Http\Controllers\ApiController@UpdateUser');
+Route::put('Usuario/{id}', 'App\Http\Controllers\ApiController@updateUser');
 Route::get('Usuario', 'App\Http\Controllers\ApiController@getAllUsers');
-Route::post('Novidades', 'App\Http\Controllers\ApiController@createNews');
-Route::put('Novidades/{id}', 'App\Http\Controllers\ApiController@updateNews');
-Route::delete('Novidades/{id}', 'App\Http\Controllers\ApiController@deleteNews');
+Route::delete('Usuario/{id}', 'App\Http\Controllers\ApiController@deleteUser');
+
+/*
+|--------------------------------------------------------------------------
+| Clientes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::post('Cliente', 'App\Http\Controllers\ApiController@createClient');
+Route::get('Cliente/{id}', 'App\Http\Controllers\ApiController@getClient');
+Route::put('Cliente/{id}', 'App\Http\Controllers\ApiController@updateClient');
+Route::get('Cliente', 'App\Http\Controllers\ApiController@getAllClients');
+Route::delete('Cliente/{id}', 'App\Http\Controllers\ApiController@deleteClient');
+
+/*
+|--------------------------------------------------------------------------
+| Relacionamento Usuários com Clientes (Relationship)
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::post('Relacionamento', 'App\Http\Controllers\ApiController@createRelationship');
+Route::get('Relacionamento/{id}', 'App\Http\Controllers\ApiController@getRelationship');
+Route::get('RelacionamentoUsuario/{user}', 'App\Http\Controllers\ApiController@getRelationshipUser');
+Route::get('Relacionamento', 'App\Http\Controllers\ApiController@getAllRelationship');
+Route::put('Relacionamento/{id}', 'App\Http\Controllers\ApiController@updateRelationship');
+Route::delete('Relacionamento/{id}', 'App\Http\Controllers\ApiController@deleteRelationship');
+
+/*
+|--------------------------------------------------------------------------
+| Conveniadas
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::post('Conveniada', 'App\Http\Controllers\ApiController@createAffiliated');
+Route::get('Conveniada/{id}', 'App\Http\Controllers\ApiController@getAffiliated');
+Route::get('Conveniada', 'App\Http\Controllers\ApiController@getAllAffiliated');
+Route::put('Conveniada/{id}', 'App\Http\Controllers\ApiController@updateAffiliated');
+Route::delete('Conveniada/{id}', 'App\Http\Controllers\ApiController@deleteAffiliated');
+
+/*
+|--------------------------------------------------------------------------
+| Ambientes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::post('Ambiente', 'App\Http\Controllers\ApiController@createEnvironment');
+Route::get('Ambiente/{id}', 'App\Http\Controllers\ApiController@getEnvironment');
+Route::get('AmbienteCliente/{client}', 'App\Http\Controllers\ApiController@getEnvironmentClient');
+Route::get('Ambiente', 'App\Http\Controllers\ApiController@getAllEnvironments');
+Route::put('Ambiente/{id}', 'App\Http\Controllers\ApiController@updateEnvironment');
+Route::delete('Ambiente/{id}', 'App\Http\Controllers\ApiController@deleteEnvironment');
+
+/*
+|--------------------------------------------------------------------------
+| Usuários do Cliente
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::post('Ligacao', 'App\Http\Controllers\ApiController@createLinkUser');
+Route::get('Ligacao/{id}', 'App\Http\Controllers\ApiController@getLinkUser');
+Route::get('LigacaoCliente/{client}', 'App\Http\Controllers\ApiController@getLinkUserClient');
+Route::get('Ligacao', 'App\Http\Controllers\ApiController@getAllLinkUser');
+Route::put('Ligacao/{id}', 'App\Http\Controllers\ApiController@updateLinkUser');
+Route::delete('Ligacao/{id}', 'App\Http\Controllers\ApiController@deleteLinkUser');
+
+/*
+|--------------------------------------------------------------------------
+| Reservas
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::post('Reserva', 'App\Http\Controllers\ApiController@createReservation');
+Route::get('Reserva/{id}', 'App\Http\Controllers\ApiController@getReservation');
+Route::get('ReservaCliente/{client}', 'App\Http\Controllers\ApiController@getClientReservation');
+Route::get('ReservaUsuario/{user}', 'App\Http\Controllers\ApiController@getUserReservation');
+Route::get('ReservaAmbiente/{idenvironment}', 'App\Http\Controllers\ApiController@getEnvironmentReservation');
+Route::get('Reserva', 'App\Http\Controllers\ApiController@getAllReservations');
+Route::put('Reserva/{id}', 'App\Http\Controllers\ApiController@updateReservation');
+Route::delete('Reserva/{id}', 'App\Http\Controllers\ApiController@deleteReservation');
 
 Route::group([
 
@@ -39,5 +126,5 @@ Route::group([
     Route::post('verifyEmail', 'App\Http\Controllers\AuthController@verifyEmail');
     Route::post('recoveryPasswordEmail', 'App\Http\Controllers\AuthController@recoveryPasswordEmail');
     Route::post('recoveryPassword', 'App\Http\Controllers\AuthController@recoveryPassword');
-    Route::post('getUserTerms', 'App\Http\Controllers\AuthController@getUserTerms');
+    Route::get('getUserTerms', 'App\Http\Controllers\AuthController@getUserTerms');
 });
