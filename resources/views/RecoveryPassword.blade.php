@@ -73,7 +73,7 @@
 <div class="verified-page">
     <div class="square">
         <div>
-            <form class="register-form" action="https://web-reserva-o6jvz.ondigitalocean.app/login/api/auth/recoveryPassword" method="POST" onSubmit='return validaForm()'>
+            <form class="register-form" action="https://octopus-app-mpimd.ondigitalocean.app/login/api/auth/recoveryPassword" method="POST" onSubmit='return validaForm()'>
                 <input id="password" name="password" type="password" placeholder="Digite sua Senha" />
                 <input id="repeatPassword" name="repeatPassword" type="password" placeholder="Repita a senha" />
                 <input id="hash" name="hash" type="hidden" value="{{ explode('/', Request::url())[4] }}" placeholder="Hash" />
