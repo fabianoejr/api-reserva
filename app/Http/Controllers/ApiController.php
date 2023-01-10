@@ -105,7 +105,7 @@ class ApiController extends Controller
   {
     $cliente = new Clients;
     $cliente->name = $request->name;
-    $cliente->status = $request->email;
+    $cliente->status = $request->status;
     $cliente->save();
 
     return response()->json([
