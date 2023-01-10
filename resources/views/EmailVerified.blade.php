@@ -49,7 +49,7 @@
             <br>
             <br>
             <br>
-            <button onclick="window.location.href = 'http://localhost:3000/login' ">Voltar para a plataforma</button>
+            <button onclick="window.location.href = 'https://web-reserva-o6jvz.ondigitalocean.app/login'">Voltar para a plataforma</button>
         </div>
     </div>
 </div>

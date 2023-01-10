@@ -43,7 +43,7 @@ class ApiController extends Controller
       return response($usuarios, 200);
     } else {
       return response()->json([
-        "message" => "Usuário não encontrado!"
+        "error" => "Usuário não encontrado!"
       ], 404);
     }
   }
@@ -70,7 +70,7 @@ class ApiController extends Controller
       ], 200);
     } else {
       return response()->json([
-        "message" => "Erro ao atualizar."
+        "error" => "Erro ao atualizar."
       ], 404);
     }
   }
@@ -86,7 +86,7 @@ class ApiController extends Controller
         ], 202);
       } else {
         return response()->json([
-          "message" => "Usuário não encontrado!"
+          "error" => "Usuário não encontrado!"
         ], 404);
       }
     }
@@ -120,7 +120,7 @@ class ApiController extends Controller
       return response($cliente, 200);
     } else {
       return response()->json([
-        "message" => "Cliente não encontrado!"
+        "error" => "Cliente não encontrado!"
       ], 404);
     }
   }
@@ -144,7 +144,7 @@ class ApiController extends Controller
       ], 200);
     } else {
       return response()->json([
-        "message" => "Erro ao atualizar o cliente."
+        "error" => "Erro ao atualizar o cliente."
       ], 404);
     }
   }
@@ -160,7 +160,7 @@ class ApiController extends Controller
         ], 202);
       } else {
         return response()->json([
-          "message" => "Cliente não encontrado!"
+          "error" => "Cliente não encontrado!"
         ], 404);
       }
     }
@@ -194,7 +194,7 @@ class ApiController extends Controller
       return response($relacionamento, 200);
     } else {
       return response()->json([
-        "message" => "Relacionamento não encontrado!"
+        "error" => "Relacionamento não encontrado!"
       ], 404);
     }
   }
@@ -206,7 +206,7 @@ class ApiController extends Controller
       return response($relacionamento, 200);
     } else {
       return response()->json([
-        "message" => "Relacionamento não encontrado!"
+        "error" => "Relacionamento não encontrado!"
       ], 404);
     }
   }
@@ -230,7 +230,7 @@ class ApiController extends Controller
       ], 200);
     } else {
       return response()->json([
-        "message" => "Erro ao atualizar o relacionamento."
+        "error" => "Erro ao atualizar o relacionamento."
       ], 404);
     }
   }
@@ -246,7 +246,7 @@ class ApiController extends Controller
         ], 202);
       } else {
         return response()->json([
-          "message" => "Relacionamento não encontrado!"
+          "error" => "Relacionamento não encontrado!"
         ], 404);
       }
     }
@@ -281,7 +281,7 @@ class ApiController extends Controller
       return response($conveniadas, 200);
     } else {
       return response()->json([
-        "message" => "Conveniada não encontrada!"
+        "error" => "Conveniada não encontrada!"
       ], 404);
     }
   }
@@ -306,7 +306,7 @@ class ApiController extends Controller
       ], 200);
     } else {
       return response()->json([
-        "message" => "Erro ao atualizar a Conveniada."
+        "error" => "Erro ao atualizar a Conveniada."
       ], 404);
     }
   }
@@ -322,7 +322,7 @@ class ApiController extends Controller
         ], 202);
       } else {
         return response()->json([
-          "message" => "Conveniada não encontrada!"
+          "error" => "Conveniada não encontrada!"
         ], 404);
       }
     }
@@ -356,7 +356,7 @@ class ApiController extends Controller
       return response($ambiente, 200);
     } else {
       return response()->json([
-        "message" => "Ambiente não encontrado!"
+        "error" => "Ambiente não encontrado!"
       ], 404);
     }
   }
@@ -368,7 +368,7 @@ class ApiController extends Controller
       return response($ambiente, 200);
     } else {
       return response()->json([
-        "message" => "Ambiente não encontrado!"
+        "error" => "Ambiente não encontrado!"
       ], 404);
     }
   }
@@ -392,7 +392,7 @@ class ApiController extends Controller
       ], 200);
     } else {
       return response()->json([
-        "message" => "Erro ao atualizar o ambiente."
+        "error" => "Erro ao atualizar o ambiente."
       ], 404);
     }
   }
@@ -408,7 +408,7 @@ class ApiController extends Controller
         ], 202);
       } else {
         return response()->json([
-          "message" => "Ambiente não encontrado!"
+          "error" => "Ambiente não encontrado!"
         ], 404);
       }
     }
@@ -444,7 +444,7 @@ class ApiController extends Controller
       return response($ligacao, 200);
     } else {
       return response()->json([
-        "message" => "Ligação não encontrada!"
+        "error" => "Ligação não encontrada!"
       ], 404);
     }
   }
@@ -456,7 +456,7 @@ class ApiController extends Controller
       return response($ligacao, 200);
     } else {
       return response()->json([
-        "message" => "Ligação não encontrada!"
+        "error" => "Ligação não encontrada!"
       ], 404);
     }
   }
@@ -481,7 +481,7 @@ class ApiController extends Controller
       ], 200);
     } else {
       return response()->json([
-        "message" => "Erro ao atualizar a ligação."
+        "error" => "Erro ao atualizar a ligação."
       ], 404);
     }
   }
@@ -497,7 +497,7 @@ class ApiController extends Controller
         ], 202);
       } else {
         return response()->json([
-          "message" => "Ligação não encontrada!"
+          "error" => "Ligação não encontrada!"
         ], 404);
       }
     }
@@ -533,7 +533,7 @@ class ApiController extends Controller
       return response($reserva, 200);
     } else {
       return response()->json([
-        "message" => "Reserva não encontrada!"
+        "error" => "Reserva não encontrada!"
       ], 404);
     }
   }
@@ -545,7 +545,7 @@ class ApiController extends Controller
       return response($reserva, 200);
     } else {
       return response()->json([
-        "message" => "Reserva não encontrada!"
+        "error" => "Reserva não encontrada!"
       ], 404);
     }
   }
@@ -557,7 +557,7 @@ class ApiController extends Controller
       return response($reserva, 200);
     } else {
       return response()->json([
-        "message" => "Reserva não encontrada!"
+        "error" => "Reserva não encontrada!"
       ], 404);
     }
   }
@@ -569,7 +569,7 @@ class ApiController extends Controller
       return response($reserva, 200);
     } else {
       return response()->json([
-        "message" => "Reserva não encontrada!"
+        "error" => "Reserva não encontrada!"
       ], 404);
     }
   }
@@ -595,7 +595,7 @@ class ApiController extends Controller
       ], 200);
     } else {
       return response()->json([
-        "message" => "Erro ao atualizar a reserva."
+        "error" => "Erro ao atualizar a reserva."
       ], 404);
     }
   }
@@ -611,7 +611,7 @@ class ApiController extends Controller
         ], 202);
       } else {
         return response()->json([
-          "message" => "Reserva não encontrada!"
+          "error" => "Reserva não encontrada!"
         ], 404);
       }
     }

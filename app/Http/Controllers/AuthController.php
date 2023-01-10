@@ -35,7 +35,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json($validator->errors(), 400);
         }
         if (User::where([
             ['email_verified_at', '=', null],
@@ -43,10 +43,10 @@ class AuthController extends Controller
         ])->exists()) {
             return response()->json([
                 "error" => "E-mail não confirmado, verifique sua caixa de e-mail!"
-            ], 406);
+            ], 400);
         }
         if (!$token = auth()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Usuário/senha inválidos!'], 400);
         }
         return $this->createNewToken($token);
     }
@@ -57,7 +57,7 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $base_url = env('APP_URL', 'http://127.0.0.1:8000');
+        $base_url = env('APP_URL', 'https://web-reserva-o6jvz.ondigitalocean.app');
         $hash = md5(rand(0, 1000));
         $link = $base_url . '/' . 'validateEmail/' . $hash;
         $validator = Validator::make($request->all(), [
@@ -76,7 +76,7 @@ class AuthController extends Controller
         ));
         Mail::to($request->email)->send(new SignUp($request->name, $request->email, $link));
         return response()->json([
-            'message' => 'Usuário cadastrado com sucesso!',
+            'message' => 'Usuário cadastrado com sucesso, verifique seu e-mail.',
             'user' => $user
         ], 201);
     }
@@ -146,12 +146,12 @@ class AuthController extends Controller
             } else {
                 return View::make('EmailVerified')->with('return', 'E-mail já verificado.');
                 return response()->json([
-                    "message" => "E-mail já verificado."
-                ], 404);
+                    "error" => "E-mail já verificado."
+                ], 400);
             }
         }
         return response()->json([
-            "message" => "E-mail não cadastrado."
+            "error" => "E-mail não cadastrado."
         ], 404);
     }
     /**
@@ -179,7 +179,7 @@ class AuthController extends Controller
             ], 200);
         }
         return response()->json([
-            "message" => "Ocorreram erros, tente novamente."
+            "error" => "Ocorreram erros, tente novamente."
         ], 400);
     }
 
@@ -197,14 +197,14 @@ class AuthController extends Controller
                 return View::make('EmailVerified')->with('return', 'Senha alterada com sucesso!');
             } else {
                 response()->json([
-                    "message" => "Erro ao alterar a senha."
-                ], 404);
+                    "error" => "Erro ao alterar a senha."
+                ], 400);
                 return View::make('EmailVerified')->with('return', 'Oops! O link expirou, favor solicite novamente a redefinição de senha.');
             }
         }
         response()->json([
-            "message" => "Hash inválido."
-        ], 404);
+            "error" => "Hash inválido."
+        ], 400);
         return View::make('EmailVerified')->with('return', 'Hash inválido.');
     }
 
@@ -233,8 +233,8 @@ class AuthController extends Controller
             ], 200);
         } else {
             return response()->json([
-                "message" => "Erro ao atualizar o Termo de Serviço."
-            ], 404);
+                "error" => "Erro ao atualizar o Termo de Serviço."
+            ], 400);
         }
     }
 
@@ -245,7 +245,7 @@ class AuthController extends Controller
             return response($termos, 200);
         } else {
             return response()->json([
-                "message" => "Termos de Serviço não encontrado!"
+                "error" => "Termos de Serviço não encontrado!"
             ], 404);
         }
     }
@@ -261,7 +261,7 @@ class AuthController extends Controller
         ], 202);
       } else {
         return response()->json([
-          "message" => "Termos de Serviço não encontrado!"
+          "error" => "Termos de Serviço não encontrado!"
         ], 404);
       }
     }
