@@ -18,6 +18,8 @@ class CreateAffTable extends Migration
             $table->integer('client');
             $table->integer('idaffiliated');
             $table->string('name');
+            $table->timestamp('updated_at');
+            $table->timestamp('created_at');
         });
     }
 

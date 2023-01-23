@@ -9,5 +9,5 @@ class UserTerms extends Model
 {
     protected $table = 'userterms';
 
-    protected $fillable = ['id', 'descricao', 'situacao'];
+    protected $fillable = ['id', 'descricao', 'situacao', 'updated_at', 'created_at'];
 }

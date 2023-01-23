@@ -22,6 +22,8 @@ class CreateMenuItems extends Migration
             $table->string('mosmen');
             $table->string('ordite');
             $table->integer('codmod');
+            $table->timestamp('updated_at');
+            $table->timestamp('created_at');
         });
     }
 

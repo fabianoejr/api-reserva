@@ -9,5 +9,5 @@ class Reservations extends Model
 {
     protected $table = 'reservations';
 
-    protected $fillable = ['id', 'user', 'client', 'idenvironment', 'reserved_at'];
+    protected $fillable = ['id', 'user', 'client', 'idenvironment', 'reserved_at', 'updated_at', 'created_at'];
 }

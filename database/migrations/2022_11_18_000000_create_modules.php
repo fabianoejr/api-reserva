@@ -17,6 +17,8 @@ class CreateModules extends Migration
             $table->increments('codmod');
             $table->string('desmod');
             $table->string('stamod');
+            $table->timestamp('updated_at');
+            $table->timestamp('created_at');
         });
     }
 

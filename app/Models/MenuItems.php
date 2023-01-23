@@ -9,5 +9,5 @@ class MenuItems extends Model
 {
     protected $table = 'menuitems';
 
-    protected $fillable = ['codite', 'codprf', 'urlite', 'desite', 'icoite', 'mosmen', 'ordite', 'codmod'];
+    protected $fillable = ['codite', 'codprf', 'urlite', 'desite', 'icoite', 'mosmen', 'ordite', 'codmod', 'updated_at', 'created_at'];
 }

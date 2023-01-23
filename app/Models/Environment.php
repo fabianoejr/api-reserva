@@ -9,5 +9,5 @@ class Environment extends Model
 {
     protected $table = 'environment';
 
-    protected $fillable = ['id', 'client', 'idenvironment', 'name'];
+    protected $fillable = ['id', 'client', 'idenvironment', 'name', 'updated_at', 'created_at'];
 }

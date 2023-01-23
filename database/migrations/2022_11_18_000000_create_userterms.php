@@ -17,6 +17,8 @@ class CreateUserterms extends Migration
             $table->increments('id');
             $table->string('descricao');
             $table->string('situacao');
+            $table->timestamp('updated_at');
+            $table->timestamp('created_at');
         });
     }
 

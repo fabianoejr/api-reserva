@@ -9,5 +9,5 @@ class LinkUser extends Model
 {
     protected $table = 'linkuser';
 
-    protected $fillable = ['id', 'client', 'idaffiliated', 'name', 'email'];
+    protected $fillable = ['id', 'client', 'idaffiliated', 'name', 'email', 'updated_at', 'created_at'];
 }

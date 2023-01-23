@@ -9,5 +9,5 @@ class Novidades extends Model
 {
     protected $table = 'novidades';
 
-    protected $fillable = ['id', 'titulo', 'descricao', 'data','situacao'];
+    protected $fillable = ['id', 'titulo', 'descricao', 'data','situacao', 'updated_at', 'created_at'];
 }

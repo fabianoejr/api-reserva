@@ -9,5 +9,5 @@ class Modules extends Model
 {
     protected $table = 'modules';
 
-    protected $fillable = ['codmod', 'desmod', 'stamod'];
+    protected $fillable = ['codmod', 'desmod', 'stamod', 'updated_at', 'created_at'];
 }
