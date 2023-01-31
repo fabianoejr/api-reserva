@@ -9,5 +9,5 @@ class Clients extends Model
 {
     protected $table = 'clients';
 
-    protected $fillable = ['id', 'name', 'status'];
+    protected $fillable = ['id', 'name', 'status', 'updated_at', 'created_at'];
 }

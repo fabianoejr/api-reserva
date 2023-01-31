@@ -76,7 +76,7 @@ class AuthController extends Controller
         ));
         Mail::to($request->email)->send(new SignUp($request->name, $request->email, $link));
         return response()->json([
-            'message' => 'Usuário cadastrado com sucesso, verifique seu e-mail.',
+            'message' => 'Usuário cadastrado com sucesso, verifique seu e-mail, faça a validação de seu cadastro para depois acessar.',
             'user' => $user
         ], 201);
     }
