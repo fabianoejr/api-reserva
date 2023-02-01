@@ -517,6 +517,8 @@ class ApiController extends Controller
     $reserva = new Reservations();
     $reserva->user = $request->user;
     $reserva->client = $request->client;
+    $reserva->title = $request->title;
+    $reserva->desc = $request->desc;
     $reserva->idenvironment = $request->idenvironment;
     $reserva->reserved_at = $request->reserved_at;
     $reserva->save();
