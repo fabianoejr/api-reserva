@@ -23,6 +23,7 @@ class CreateReservationsTable extends Migration
             $table->timestamp('reserved_at');
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
+            $table->string('status');
         });
     }
 

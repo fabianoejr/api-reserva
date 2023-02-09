@@ -9,5 +9,5 @@ class Relationship extends Model
 {
     protected $table = 'relationship';
 
-    protected $fillable = ['id', 'client', 'user', 'user_ent','updated_at', 'created_at'];
+    protected $fillable = ['id', 'client', 'user', 'user_ent', 'updated_at', 'created_at', 'status'];
 }

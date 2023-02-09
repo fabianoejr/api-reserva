@@ -180,6 +180,7 @@ class ApiController extends Controller
     $relacionamento = new Relationship();
     $relacionamento->client = $request->client;
     $relacionamento->user = $request->user;
+    $relacionamento->status = is_null($request->status) ? 'A' : $request->status;
     $relacionamento->save();
 
     return response()->json([
@@ -223,6 +224,7 @@ class ApiController extends Controller
       $relacionamento = Relationship::find($id);
       $relacionamento->client = is_null($request->client) ? $relacionamento->client : $request->client;
       $relacionamento->user = is_null($request->user) ? $relacionamento->user : $request->user;
+      $relacionamento->status = is_null($request->status) ? $relacionamento->status : $request->status;
       $relacionamento->save();
 
       return response()->json([
@@ -267,6 +269,7 @@ class ApiController extends Controller
     $conveniadas->client = $request->client;
     $conveniadas->idaffiliated = $request->idaffiliated;
     $conveniadas->name = $request->name;
+    $conveniadas->status = is_null($request->status) ? 'A' : $request->status;
     $conveniadas->save();
 
     return response()->json([
@@ -299,6 +302,7 @@ class ApiController extends Controller
       $conveniadas->client = is_null($request->client) ? $conveniadas->client : $request->client;
       $conveniadas->idaffiliated = is_null($request->idaffiliated) ? $conveniadas->idaffiliated : $request->idaffiliated;
       $conveniadas->name = is_null($request->name) ? $conveniadas->name : $request->name;
+      $conveniadas->status = is_null($request->status) ? $conveniadas->status : $request->status;
       $conveniadas->save();
 
       return response()->json([
@@ -342,6 +346,7 @@ class ApiController extends Controller
     $ambiente = new Environment();
     $ambiente->client = $request->client;
     $ambiente->name = $request->name;
+    $ambiente->status = is_null($request->status) ? 'A' : $request->status;
     $ambiente->save();
 
     return response()->json([
@@ -385,6 +390,7 @@ class ApiController extends Controller
       $ambiente = Environment::find($id);
       $ambiente->client = is_null($request->client) ? $ambiente->client : $request->client;
       $ambiente->name = is_null($request->name) ? $ambiente->name : $request->name;
+      $ambiente->status = is_null($request->status) ? $ambiente->status : $request->status;
       $ambiente->save();
 
       return response()->json([
@@ -521,6 +527,7 @@ class ApiController extends Controller
     $reserva->desc = $request->desc;
     $reserva->idenvironment = $request->idenvironment;
     $reserva->reserved_at = $request->reserved_at;
+    $reserva->status = is_null($request->status) ? 'A' : $request->status;
     $reserva->save();
 
     return response()->json([
@@ -588,8 +595,11 @@ class ApiController extends Controller
       $reserva = Reservations::find($id);
       $reserva->user = is_null($request->user) ? $reserva->user : $request->user;
       $reserva->client = is_null($request->client) ? $reserva->client : $request->client;
+      $reserva->title = is_null($request->title) ? $reserva->title : $request->title;
+      $reserva->desc = is_null($request->desc) ? $reserva->desc : $request->desc;
       $reserva->idenvironment = is_null($request->idenvironment) ? $reserva->idenvironment : $request->idenvironment;
       $reserva->reserved_at = is_null($request->reserved_at) ? $reserva->reserved_at : $request->reserved_at;
+      $reserva->status = is_null($request->status) ? $reserva->status : $request->status;
       $reserva->save();
 
       return response()->json([

@@ -9,5 +9,5 @@ class Affiliated extends Model
 {
     protected $table = 'affiliated';
 
-    protected $fillable = ['id', 'client', 'idaffiliated', 'name', 'updated_at', 'created_at'];
+    protected $fillable = ['id', 'client', 'idaffiliated', 'name', 'updated_at', 'created_at', 'status'];
 }

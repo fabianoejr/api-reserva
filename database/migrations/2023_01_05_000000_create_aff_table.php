@@ -20,6 +20,7 @@ class CreateAffTable extends Migration
             $table->string('name');
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
+            $table->string('status');
         });
     }
 
