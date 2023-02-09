@@ -20,7 +20,7 @@ class CreateRelationshipTable extends Migration
             $table->integer('user_ent')->nullable();
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
-            $table->status('status');
+            $table->string('status');
         });
     }
 
