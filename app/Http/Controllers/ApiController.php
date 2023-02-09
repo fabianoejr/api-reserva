@@ -436,6 +436,7 @@ class ApiController extends Controller
     $ligacao->client = $request->client;
     $ligacao->name = $request->name;
     $ligacao->email = $request->email;
+    $ligacao->status = is_null($request->status) ? 'A' : $request->status;
     $ligacao->save();
 
     return response()->json([
@@ -480,6 +481,7 @@ class ApiController extends Controller
       $ligacao->client = is_null($request->client) ? $ligacao->client : $request->client;
       $ligacao->name = is_null($request->name) ? $ligacao->name : $request->name;
       $ligacao->email = is_null($request->email) ? $ligacao->email : $request->email;
+      $ligacao->status = is_null($request->status) ? $ligacao->status : $request->status;
       $ligacao->save();
 
       return response()->json([

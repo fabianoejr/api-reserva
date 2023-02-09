@@ -20,6 +20,7 @@ class CreateLinkUserTable extends Migration
             $table->string('email');
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
+            $table->string('status');
         });
     }
 
