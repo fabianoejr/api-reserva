@@ -21,6 +21,7 @@ class CreateReservationsTable extends Migration
             $table->integer('client');
             $table->integer('idenvironment');
             $table->timestamp('reserved_at');
+            $table->timestamp('reserved_until');
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
             $table->string('status');

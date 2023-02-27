@@ -529,6 +529,7 @@ class ApiController extends Controller
     $reserva->desc = $request->desc;
     $reserva->idenvironment = $request->idenvironment;
     $reserva->reserved_at = $request->reserved_at;
+    $reserva->reserved_until = $request->reserved_until;
     $reserva->status = is_null($request->status) ? 'A' : $request->status;
     $reserva->save();
 
@@ -601,6 +602,7 @@ class ApiController extends Controller
       $reserva->desc = is_null($request->desc) ? $reserva->desc : $request->desc;
       $reserva->idenvironment = is_null($request->idenvironment) ? $reserva->idenvironment : $request->idenvironment;
       $reserva->reserved_at = is_null($request->reserved_at) ? $reserva->reserved_at : $request->reserved_at;
+      $reserva->reserved_until = is_null($request->reserved_until) ? $reserva->reserved_until : $request->reserved_until;
       $reserva->status = is_null($request->status) ? $reserva->status : $request->status;
       $reserva->save();
 
