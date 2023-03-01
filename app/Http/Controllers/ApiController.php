@@ -180,6 +180,7 @@ class ApiController extends Controller
     $relacionamento = new Relationship();
     $relacionamento->client = $request->client;
     $relacionamento->user = $request->user;
+    $relacionamento->user_emp = $request->user_emp;
     $relacionamento->status = is_null($request->status) ? 'A' : $request->status;
     $relacionamento->save();
 
@@ -224,6 +225,7 @@ class ApiController extends Controller
       $relacionamento = Relationship::find($id);
       $relacionamento->client = is_null($request->client) ? $relacionamento->client : $request->client;
       $relacionamento->user = is_null($request->user) ? $relacionamento->user : $request->user;
+      $relacionamento->user_emp = is_null($request->user_emp) ? $relacionamento->user_emp : $request->user_emp;
       $relacionamento->status = is_null($request->status) ? $relacionamento->status : $request->status;
       $relacionamento->save();
 
