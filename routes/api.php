@@ -112,6 +112,16 @@ Route::get('Reserva', 'App\Http\Controllers\ApiController@getAllReservations');
 Route::put('Reserva/{id}', 'App\Http\Controllers\ApiController@updateReservation');
 Route::delete('Reserva/{id}', 'App\Http\Controllers\ApiController@deleteReservation');
 
+/*
+|--------------------------------------------------------------------------
+| Ranges de Horários
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::get('Horario/{idenvironment}', 'App\Http\Controllers\ApiController@getEnvironmentRangeHours');
+Route::get('Horario', 'App\Http\Controllers\ApiController@getAllRangeHours');
+
 Route::group([
 
     'middleware' => 'api',
