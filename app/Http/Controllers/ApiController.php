@@ -181,6 +181,7 @@ class ApiController extends Controller
     $relacionamento = new Relationship();
     $relacionamento->client = $request->client;
     $relacionamento->user = $request->user;
+    $relacionamento->user_emp = $request->user_emp;
     $relacionamento->status = is_null($request->status) ? 'A' : $request->status;
     $relacionamento->save();
 
@@ -225,6 +226,7 @@ class ApiController extends Controller
       $relacionamento = Relationship::find($id);
       $relacionamento->client = is_null($request->client) ? $relacionamento->client : $request->client;
       $relacionamento->user = is_null($request->user) ? $relacionamento->user : $request->user;
+      $relacionamento->user_emp = is_null($request->user_emp) ? $relacionamento->user_emp : $request->user_emp;
       $relacionamento->status = is_null($request->status) ? $relacionamento->status : $request->status;
       $relacionamento->save();
 
@@ -531,6 +533,8 @@ class ApiController extends Controller
     $reserva->idenvironment = $request->idenvironment;
     $reserva->reserved_at = $request->reserved_at;
     $reserva->reserved_until = $request->reserved_until;
+    $reserva->h_init = $request->h_init;
+    $reserva->h_end = $request->h_end;
     $reserva->status = is_null($request->status) ? 'A' : $request->status;
     $reserva->save();
 
@@ -604,6 +608,8 @@ class ApiController extends Controller
       $reserva->idenvironment = is_null($request->idenvironment) ? $reserva->idenvironment : $request->idenvironment;
       $reserva->reserved_at = is_null($request->reserved_at) ? $reserva->reserved_at : $request->reserved_at;
       $reserva->reserved_until = is_null($request->reserved_until) ? $reserva->reserved_until : $request->reserved_until;
+      $reserva->h_init = is_null($request->h_init) ? $reserva->h_init : $request->h_init;
+      $reserva->h_end = is_null($request->h_end) ? $reserva->h_end : $request->h_end;
       $reserva->status = is_null($request->status) ? $reserva->status : $request->status;
       $reserva->save();
 

@@ -17,7 +17,7 @@ class CreateRelationshipTable extends Migration
             $table->id()->unique();
             $table->integer('client');
             $table->integer('user');
-            $table->integer('user_ent')->nullable();
+            $table->integer('user_emp')->nullable();
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
             $table->string('status');
