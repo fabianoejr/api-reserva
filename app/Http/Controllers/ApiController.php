@@ -28,6 +28,8 @@ class ApiController extends Controller
     $usuarios = new User;
     $usuarios->name = $request->name;
     $usuarios->email = $request->email;
+    $usuarios->status = $request->status ?? 'A';
+    $usuarios->user_type = $request->user_type ?? 'USU';
     $usuarios->password = password_hash($request->password, null);
     $usuarios->save();
 

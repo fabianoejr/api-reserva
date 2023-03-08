@@ -73,6 +73,7 @@ class AuthController extends Controller
             ['password' => bcrypt($request->password)],
             ['hash_email' =>  $hash],
             ['user_type' => 'USU'],
+            ['status' => 'A'],
         ));
         Mail::to($request->email)->send(new SignUp($request->name, $request->email, $link));
         return response()->json([
