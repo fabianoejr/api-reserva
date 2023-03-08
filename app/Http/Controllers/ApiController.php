@@ -11,6 +11,7 @@ use App\Models\Environment;
 use App\Models\LinkUser;
 use App\Models\Relationship;
 use App\Models\Reservations;
+use App\Models\Rangetime;
 
 class ApiController extends Controller
 {
@@ -638,6 +639,33 @@ class ApiController extends Controller
           "error" => "Reserva não encontrada!"
         ], 404);
       }
+    }
+  }
+
+  #############################################################
+  #                                                           #
+  #                                                           #
+  #                   Range por Ambientes                     #
+  #                                                           #
+  #                                                           #
+  #                                                           #
+  #############################################################
+
+  public function getAllRangeHours()
+  {
+    $range = Rangetime::get()->toJson(JSON_PRETTY_PRINT);
+    return response($range, 200);
+  }
+
+  public function getEnvironmentRangeHours($idenvironment)
+  {
+    if (Rangetime::where('idenvironment', $idenvironment)->exists()) {
+      $range = Rangetime::where('idenvironment', $idenvironment)->get()->toJson(JSON_PRETTY_PRINT);
+      return response($range, 200);
+    } else {
+      return response()->json([
+        "error" => "Range não encontrado!"
+      ], 404);
     }
   }
 }
