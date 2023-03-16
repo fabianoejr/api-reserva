@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRelationshipTable extends Migration
+class CreateLinkempclient extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateRelationshipTable extends Migration
      */
     public function up()
     {
-        Schema::create('relationship', function (Blueprint $table) {
+        Schema::create('linkempclient', function (Blueprint $table) {
             $table->id()->unique();
+            $table->integer('user_emp');
             $table->integer('client');
-            $table->integer('user');
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
             $table->string('status');
@@ -30,6 +30,6 @@ class CreateRelationshipTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('relationship');
+        Schema::dropIfExists('linkempclient');
     }
 }

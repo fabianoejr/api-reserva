@@ -98,6 +98,19 @@ Route::delete('Ligacao/{id}', 'App\Http\Controllers\ApiController@deleteLinkUser
 
 /*
 |--------------------------------------------------------------------------
+| Clientes da Empresa
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::post('LigacaoEmpresa', 'App\Http\Controllers\ApiController@createLinkEmpClient');
+Route::get('LigacaoEmpresa/{id}', 'App\Http\Controllers\ApiController@getLinkEmpClient');
+Route::get('LigacaoEmpresa', 'App\Http\Controllers\ApiController@getAllLinkEmpClient');
+Route::put('LigacaoEmpresa/{id}', 'App\Http\Controllers\ApiController@updateLinkEmpClient');
+Route::delete('LigacaoEmpresa/{id}', 'App\Http\Controllers\ApiController@deleteLinkEmpClient');
+
+/*
+|--------------------------------------------------------------------------
 | Reservas
 |--------------------------------------------------------------------------
 |
@@ -111,6 +124,7 @@ Route::get('ReservaAmbiente/{idenvironment}', 'App\Http\Controllers\ApiControlle
 Route::get('Reserva', 'App\Http\Controllers\ApiController@getAllReservations');
 Route::put('Reserva/{id}', 'App\Http\Controllers\ApiController@updateReservation');
 Route::delete('Reserva/{id}', 'App\Http\Controllers\ApiController@deleteReservation');
+Route::get('ReservaRelatorio/{client}/{idenvironment}/{init}/{end}', 'App\Http\Controllers\ApiController@getReservationsRel');
 
 /*
 |--------------------------------------------------------------------------

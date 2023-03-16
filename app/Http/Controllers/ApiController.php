@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Clients;
 use App\Models\Affiliated;
 use App\Models\Environment;
+use App\Models\LinkEmpClient;
 use App\Models\LinkUser;
 use App\Models\Relationship;
 use App\Models\Reservations;
@@ -181,7 +182,6 @@ class ApiController extends Controller
     $relacionamento = new Relationship();
     $relacionamento->client = $request->client;
     $relacionamento->user = $request->user;
-    $relacionamento->user_emp = $request->user_emp;
     $relacionamento->status = is_null($request->status) ? 'A' : $request->status;
     $relacionamento->save();
 
@@ -226,7 +226,6 @@ class ApiController extends Controller
       $relacionamento = Relationship::find($id);
       $relacionamento->client = is_null($request->client) ? $relacionamento->client : $request->client;
       $relacionamento->user = is_null($request->user) ? $relacionamento->user : $request->user;
-      $relacionamento->user_emp = is_null($request->user_emp) ? $relacionamento->user_emp : $request->user_emp;
       $relacionamento->status = is_null($request->status) ? $relacionamento->status : $request->status;
       $relacionamento->save();
 
@@ -555,6 +554,16 @@ class ApiController extends Controller
     }
   }
 
+  public function getReservationsRel($client, $idenvironment, $init, $end)
+  {
+    $reserva = Reservations::where([
+      'client' => $client,
+      'idenvironment' => $idenvironment
+    ])->where("reserved_at", '>=', $init)
+      ->where('reserved_until', '<=', $end)->get()->toJson(JSON_PRETTY_PRINT);
+    return response($reserva, 200);
+  }
+
   public function getClientReservation($client)
   {
     if (Reservations::where('client', $client)->exists()) {
@@ -664,6 +673,82 @@ class ApiController extends Controller
       return response()->json([
         "error" => "Range não encontrado!"
       ], 404);
+    }
+  }
+
+  #############################################################
+  #                                                           #
+  #                                                           #
+  #                Ligação Empresa x CLiente                  #
+  #                                                           #
+  #                                                           #
+  #                                                           #
+  #############################################################
+
+  public function createLinkEmpClient(Request $request)
+  {
+    $ligacao = new LinkEmpClient();
+    $ligacao->user_emp = $request->user_emp;
+    $ligacao->client = $request->client;
+    $ligacao->status = is_null($request->status) ? 'A' : $request->status;
+    $ligacao->save();
+
+    return response()->json([
+      "message" => "Ligação feita com sucesso!"
+    ], 201);
+  }
+
+  public function getLinkEmpClient($id)
+  {
+    if (LinkEmpClient::where('id', $id)->exists()) {
+      $ligacao = LinkEmpClient::where('id', $id)->get()->toJson(JSON_PRETTY_PRINT);
+      return response($ligacao, 200);
+    } else {
+      return response()->json([
+        "error" => "Ligação não encontrada!"
+      ], 404);
+    }
+  }
+
+  public function getAllLinkEmpClient()
+  {
+    $ligacao = LinkEmpClient::get()->toJson(JSON_PRETTY_PRINT);
+    return response($ligacao, 200);
+  }
+
+  public function updateLinkEmpClient(Request $request, $id)
+  {
+    if (LinkEmpClient::where('id', $id)->exists()) {
+      $ligacao = LinkEmpClient::find($id);
+      $ligacao->user_emp = is_null($request->user_emp) ? $ligacao->user_emp : $request->user_emp;
+      $ligacao->client = is_null($request->client) ? $ligacao->client : $request->client;
+      $ligacao->status = is_null($request->status) ? $ligacao->status : $request->status;
+      $ligacao->save();
+
+      return response()->json([
+        "message" => "Ligação atualizada com sucesso!"
+      ], 200);
+    } else {
+      return response()->json([
+        "error" => "Erro ao atualizar a ligação."
+      ], 404);
+    }
+  }
+
+  public function deleteLinkEmpClient($id)
+  { {
+      if (LinkEmpClient::where('id', $id)->exists()) {
+        $ligacao = LinkEmpClient::find($id);
+        $ligacao->delete();
+
+        return response()->json([
+          "message" => "Ligação deletada!"
+        ], 202);
+      } else {
+        return response()->json([
+          "error" => "Ligação não encontrada!"
+        ], 404);
+      }
     }
   }
 }
