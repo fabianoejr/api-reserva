@@ -558,10 +558,15 @@ class ApiController extends Controller
 
   public function getReservationsRel($client, $idenvironment, $init, $end)
   {
-    $reserva = Reservations::where([
+    $query = Reservations::where([
       'client' => $client,
-      'idenvironment' => $idenvironment
-    ])->where("reserved_at", '>=', $init)
+    ]);
+
+    if ($idenvironment != '*') {
+      $query->where(['idenvironment' => $idenvironment]);
+    }
+
+    $reserva = $query->where("reserved_at", '>=', $init)
       ->where('reserved_until', '<=', $end)->get()->toJson(JSON_PRETTY_PRINT);
     return response($reserva, 200);
   }
