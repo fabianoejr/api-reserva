@@ -1,3 +1,7 @@
+<b>Primeiro projeto utilizando Laravel, há mais de um ano e meio. (muitas formas de resolver os problemas e criar endpoints foram aperfeiçoados e corrigidos até então)</b>
+<b>Projeto onde consiste em uma API Rest de um sistema de agendamentos de espaços físicos, por exemplo quadras de associações, salões de festa, etc.</b>
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
